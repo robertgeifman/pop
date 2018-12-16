@@ -192,5 +192,5 @@ extern CGPoint POPLayerGetSubTranslationXY(CALayer *l);
  @abstract Sets sublayer x and y translation factors given point.
  */
 extern void POPLayerSetSubTranslationXY(CALayer *l, CGPoint p);
-
 POP_EXTERN_C_END
+

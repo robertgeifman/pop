@@ -89,8 +89,7 @@ namespace WebCore {
   //
   //  calculate the determinant of a 2x2 matrix.
   
-  static double determinant2x2(double a, double b, double c, double d)
-  {
+  static double determinant2x2(double a, double b, double c, double d) {
     return a * d - b * c;
   }
   
@@ -103,8 +102,7 @@ namespace WebCore {
   //      | a2,  b2,  c2 |
   //      | a3,  b3,  c3 |
   
-  static double determinant3x3(double a1, double a2, double a3, double b1, double b2, double b3, double c1, double c2, double c3)
-  {
+  static double determinant3x3(double a1, double a2, double a3, double b1, double b2, double b3, double c1, double c2, double c3) {
     return a1 * determinant2x2(b2, b3, c2, c3)
     - b1 * determinant2x2(a2, a3, c2, c3)
     + c1 * determinant2x2(a2, a3, b2, b3);
@@ -114,8 +112,7 @@ namespace WebCore {
   //
   //  calculate the determinant of a 4x4 matrix.
   
-  static double determinant4x4(const TransformationMatrix::Matrix4& m)
-  {
+  static double determinant4x4(const TransformationMatrix::Matrix4& m) {
     // Assign to individual variable names to aid selecting
     // correct elements
     
@@ -161,8 +158,7 @@ namespace WebCore {
   //  The matrix B = (b  ) is the adjoint of A
   //                   ij
   
-  static void adjoint(const TransformationMatrix::Matrix4& matrix, TransformationMatrix::Matrix4& result)
-  {
+  static void adjoint(const TransformationMatrix::Matrix4& matrix, TransformationMatrix::Matrix4& result) {
     // Assign to individual variable names to aid
     // selecting correct values
     double a1 = matrix[0][0];
@@ -208,8 +204,7 @@ namespace WebCore {
   }
   
   // Returns false if the matrix is not invertible
-  static bool inverse(const TransformationMatrix::Matrix4& matrix, TransformationMatrix::Matrix4& result)
-  {
+  static bool inverse(const TransformationMatrix::Matrix4& matrix, TransformationMatrix::Matrix4& result) {
     // Calculate the adjoint matrix
     adjoint(matrix, result);
     
@@ -236,16 +231,14 @@ namespace WebCore {
   // From Graphics Gems: unmatrix.c
   
   // Transpose rotation portion of matrix a, return b
-  static void transposeMatrix4(const TransformationMatrix::Matrix4& a, TransformationMatrix::Matrix4& b)
-  {
+  static void transposeMatrix4(const TransformationMatrix::Matrix4& a, TransformationMatrix::Matrix4& b) {
     for (int i = 0; i < 4; i++)
       for (int j = 0; j < 4; j++)
         b[i][j] = a[j][i];
   }
   
   // Multiply a homogeneous point by a matrix and return the transformed point
-  static void v4MulPointByMatrix(const Vector4 p, const TransformationMatrix::Matrix4& m, Vector4 result)
-  {
+  static void v4MulPointByMatrix(const Vector4 p, const TransformationMatrix::Matrix4& m, Vector4 result) {
     result[0] = (p[0] * m[0][0]) + (p[1] * m[1][0]) +
     (p[2] * m[2][0]) + (p[3] * m[3][0]);
     result[1] = (p[0] * m[0][1]) + (p[1] * m[1][1]) +
@@ -256,13 +249,11 @@ namespace WebCore {
     (p[2] * m[2][3]) + (p[3] * m[3][3]);
   }
   
-  static double v3Length(Vector3 a)
-  {
+  static double v3Length(Vector3 a) {
     return sqrt((a[0] * a[0]) + (a[1] * a[1]) + (a[2] * a[2]));
   }
   
-  static void v3Scale(Vector3 v, double desiredLength)
-  {
+  static void v3Scale(Vector3 v, double desiredLength) {
     double len = v3Length(v);
     if (len != 0) {
       double l = desiredLength / len;
@@ -272,30 +263,26 @@ namespace WebCore {
     }
   }
   
-  static double v3Dot(const Vector3 a, const Vector3 b)
-  {
+  static double v3Dot(const Vector3 a, const Vector3 b) {
     return (a[0] * b[0]) + (a[1] * b[1]) + (a[2] * b[2]);
   }
   
   // Make a linear combination of two vectors and return the result.
   // result = (a * ascl) + (b * bscl)
-  static void v3Combine(const Vector3 a, const Vector3 b, Vector3 result, double ascl, double bscl)
-  {
+  static void v3Combine(const Vector3 a, const Vector3 b, Vector3 result, double ascl, double bscl) {
     result[0] = (ascl * a[0]) + (bscl * b[0]);
     result[1] = (ascl * a[1]) + (bscl * b[1]);
     result[2] = (ascl * a[2]) + (bscl * b[2]);
   }
   
   // Return the cross product result = a cross b */
-  static void v3Cross(const Vector3 a, const Vector3 b, Vector3 result)
-  {
+  static void v3Cross(const Vector3 a, const Vector3 b, Vector3 result) {
     result[0] = (a[1] * b[2]) - (a[2] * b[1]);
     result[1] = (a[2] * b[0]) - (a[0] * b[2]);
     result[2] = (a[0] * b[1]) - (a[1] * b[0]);
   }
   
-  static bool decompose(const TransformationMatrix::Matrix4& mat, TransformationMatrix::DecomposedType& result)
-  {
+  static bool decompose(const TransformationMatrix::Matrix4& mat, TransformationMatrix::DecomposedType& result) {
     TransformationMatrix::Matrix4 localMatrix;
     memcpy(localMatrix, mat, sizeof(TransformationMatrix::Matrix4));
     
@@ -463,8 +450,7 @@ namespace WebCore {
   
   // Perform a spherical linear interpolation between the two
   // passed quaternions with 0 <= t <= 1
-  static void slerp(double qa[4], const double qb[4], double t)
-  {
+  static void slerp(double qa[4], const double qb[4], double t) {
     double ax, ay, az, aw;
     double bx, by, bz, bw;
     double cx, cy, cz, cw;
@@ -511,22 +497,18 @@ namespace WebCore {
   
   // End of Supporting Math Functions
   
-  TransformationMatrix::TransformationMatrix(const CGAffineTransform& t)
-  {
+  TransformationMatrix::TransformationMatrix(const CGAffineTransform& t) {
     setMatrix(t.a, t.b, t.c, t.d, t.tx, t.ty);
   }
 
-  TransformationMatrix::TransformationMatrix(const CATransform3D& t)
-  {
-    setMatrix(
-              t.m11, t.m12, t.m13, t.m14,
+  TransformationMatrix::TransformationMatrix(const CATransform3D& t) {
+    setMatrix(t.m11, t.m12, t.m13, t.m14,
               t.m21, t.m22, t.m23, t.m24,
               t.m31, t.m32, t.m33, t.m34,
               t.m41, t.m42, t.m43, t.m44);
   }
 
-  CATransform3D TransformationMatrix::transform3d() const
-  {
+  CATransform3D TransformationMatrix::transform3d() const {
     CATransform3D t;
     t.m11 = narrowPrecisionToFloat(m11());
     t.m12 = narrowPrecisionToFloat(m12());
@@ -547,8 +529,7 @@ namespace WebCore {
     return t;
   }
 
-  CGAffineTransform TransformationMatrix::affineTransform () const
-  {
+  CGAffineTransform TransformationMatrix::affineTransform () const {
     CGAffineTransform t;
     t.a = narrowPrecisionToFloat(m11());
     t.b = narrowPrecisionToFloat(m12());
@@ -559,33 +540,27 @@ namespace WebCore {
     return t;
   }
 
-  TransformationMatrix::operator CATransform3D() const
-  {
+  TransformationMatrix::operator CATransform3D() const {
     return transform3d();
   }
   
-  TransformationMatrix& TransformationMatrix::scale(double s)
-  {
+  TransformationMatrix& TransformationMatrix::scale(double s) {
     return scaleNonUniform(s, s);
   }
   
-  TransformationMatrix& TransformationMatrix::rotateFromVector(double x, double y)
-  {
+  TransformationMatrix& TransformationMatrix::rotateFromVector(double x, double y) {
     return rotate(rad2deg(atan2(y, x)));
   }
   
-  TransformationMatrix& TransformationMatrix::flipX()
-  {
+  TransformationMatrix& TransformationMatrix::flipX() {
     return scaleNonUniform(-1.0, 1.0);
   }
   
-  TransformationMatrix& TransformationMatrix::flipY()
-  {
+  TransformationMatrix& TransformationMatrix::flipY() {
     return scaleNonUniform(1.0, -1.0);
   }
   
-  TransformationMatrix& TransformationMatrix::scaleNonUniform(double sx, double sy)
-  {
+  TransformationMatrix& TransformationMatrix::scaleNonUniform(double sx, double sy) {
     m_matrix[0][0] *= sx;
     m_matrix[0][1] *= sx;
     m_matrix[0][2] *= sx;
@@ -598,8 +573,7 @@ namespace WebCore {
     return *this;
   }
   
-  TransformationMatrix& TransformationMatrix::scale3d(double sx, double sy, double sz)
-  {
+  TransformationMatrix& TransformationMatrix::scale3d(double sx, double sy, double sz) {
     scaleNonUniform(sx, sy);
     
     m_matrix[2][0] *= sz;
@@ -609,8 +583,7 @@ namespace WebCore {
     return *this;
   }
   
-  TransformationMatrix& TransformationMatrix::rotate3d(double x, double y, double z, double angle)
-  {
+  TransformationMatrix& TransformationMatrix::rotate3d(double x, double y, double z, double angle) {
     // Normalize the axis of rotation
     double length = sqrt(x * x + y * y + z * z);
     if (length == 0) {
@@ -696,8 +669,7 @@ namespace WebCore {
     return *this;
   }
   
-  TransformationMatrix& TransformationMatrix::rotate3d(double rx, double ry, double rz)
-  {
+  TransformationMatrix& TransformationMatrix::rotate3d(double rx, double ry, double rz) {
     // Angles are in degrees. Switch to radians.
     rx = deg2rad(rx);
     ry = deg2rad(ry);
@@ -763,8 +735,7 @@ namespace WebCore {
     return *this;
   }
   
-  TransformationMatrix& TransformationMatrix::translate(double tx, double ty)
-  {
+  TransformationMatrix& TransformationMatrix::translate(double tx, double ty) {
     m_matrix[3][0] += tx * m_matrix[0][0] + ty * m_matrix[1][0];
     m_matrix[3][1] += tx * m_matrix[0][1] + ty * m_matrix[1][1];
     m_matrix[3][2] += tx * m_matrix[0][2] + ty * m_matrix[1][2];
@@ -772,8 +743,7 @@ namespace WebCore {
     return *this;
   }
   
-  TransformationMatrix& TransformationMatrix::translate3d(double tx, double ty, double tz)
-  {
+  TransformationMatrix& TransformationMatrix::translate3d(double tx, double ty, double tz) {
     m_matrix[3][0] += tx * m_matrix[0][0] + ty * m_matrix[1][0] + tz * m_matrix[2][0];
     m_matrix[3][1] += tx * m_matrix[0][1] + ty * m_matrix[1][1] + tz * m_matrix[2][1];
     m_matrix[3][2] += tx * m_matrix[0][2] + ty * m_matrix[1][2] + tz * m_matrix[2][2];
@@ -781,8 +751,7 @@ namespace WebCore {
     return *this;
   }
   
-  TransformationMatrix& TransformationMatrix::translateRight(double tx, double ty)
-  {
+  TransformationMatrix& TransformationMatrix::translateRight(double tx, double ty) {
     if (tx != 0) {
       m_matrix[0][0] +=  m_matrix[0][3] * tx;
       m_matrix[1][0] +=  m_matrix[1][3] * tx;
@@ -800,8 +769,7 @@ namespace WebCore {
     return *this;
   }
   
-  TransformationMatrix& TransformationMatrix::translateRight3d(double tx, double ty, double tz)
-  {
+  TransformationMatrix& TransformationMatrix::translateRight3d(double tx, double ty, double tz) {
     translateRight(tx, ty);
     if (tz != 0) {
       m_matrix[0][2] +=  m_matrix[0][3] * tz;
@@ -813,8 +781,7 @@ namespace WebCore {
     return *this;
   }
   
-  TransformationMatrix& TransformationMatrix::skew(double sx, double sy)
-  {
+  TransformationMatrix& TransformationMatrix::skew(double sx, double sy) {
     // angles are in degrees. Switch to radians
     sx = deg2rad(sx);
     sy = deg2rad(sy);
@@ -827,8 +794,7 @@ namespace WebCore {
     return *this;
   }
   
-  TransformationMatrix& TransformationMatrix::applyPerspective(double p)
-  {
+  TransformationMatrix& TransformationMatrix::applyPerspective(double p) {
     TransformationMatrix mat;
     if (p != 0)
       mat.m_matrix[2][3] = -1/p;
@@ -838,8 +804,7 @@ namespace WebCore {
   }
   
   // this = mat * this.
-  TransformationMatrix& TransformationMatrix::multiply(const TransformationMatrix& mat)
-  {
+  TransformationMatrix& TransformationMatrix::multiply(const TransformationMatrix& mat) {
     Matrix4 tmp;
     
     tmp[0][0] = (mat.m_matrix[0][0] * m_matrix[0][0] + mat.m_matrix[0][1] * m_matrix[1][0]
@@ -882,8 +847,7 @@ namespace WebCore {
     return *this;
   }
   
-  void TransformationMatrix::multVecMatrix(double x, double y, double& resultX, double& resultY) const
-  {
+  void TransformationMatrix::multVecMatrix(double x, double y, double& resultX, double& resultY) const {
     resultX = m_matrix[3][0] + x * m_matrix[0][0] + y * m_matrix[1][0];
     resultY = m_matrix[3][1] + x * m_matrix[0][1] + y * m_matrix[1][1];
     double w = m_matrix[3][3] + x * m_matrix[0][3] + y * m_matrix[1][3];
@@ -893,8 +857,7 @@ namespace WebCore {
     }
   }
   
-  void TransformationMatrix::multVecMatrix(double x, double y, double z, double& resultX, double& resultY, double& resultZ) const
-  {
+  void TransformationMatrix::multVecMatrix(double x, double y, double z, double& resultX, double& resultY, double& resultZ) const {
     resultX = m_matrix[3][0] + x * m_matrix[0][0] + y * m_matrix[1][0] + z * m_matrix[2][0];
     resultY = m_matrix[3][1] + x * m_matrix[0][1] + y * m_matrix[1][1] + z * m_matrix[2][1];
     resultZ = m_matrix[3][2] + x * m_matrix[0][2] + y * m_matrix[1][2] + z * m_matrix[2][2];
@@ -906,8 +869,7 @@ namespace WebCore {
     }
   }
   
-  bool TransformationMatrix::isInvertible() const
-  {
+  bool TransformationMatrix::isInvertible() const {
     if (isIdentityOrTranslation())
       return true;
     
@@ -919,8 +881,7 @@ namespace WebCore {
     return true;
   }
   
-  TransformationMatrix TransformationMatrix::inverse() const
-  {
+  TransformationMatrix TransformationMatrix::inverse() const {
     if (isIdentityOrTranslation()) {
       // identity matrix
       if (m_matrix[3][0] == 0 && m_matrix[3][1] == 0 && m_matrix[3][2] == 0)
@@ -941,8 +902,7 @@ namespace WebCore {
     return invMat;
   }
   
-  void TransformationMatrix::makeAffine()
-  {
+  void TransformationMatrix::makeAffine() {
     m_matrix[0][2] = 0;
     m_matrix[0][3] = 0;
     
@@ -958,14 +918,12 @@ namespace WebCore {
     m_matrix[3][3] = 1;
   }
   
-  static inline void blendFloat(double& from, double to, double progress)
-  {
+  static inline void blendFloat(double& from, double to, double progress) {
     if (from != to)
       from = from + (to - from) * progress;
   }
   
-  void TransformationMatrix::blend(const TransformationMatrix& from, double progress)
-  {
+  void TransformationMatrix::blend(const TransformationMatrix& from, double progress) {
     if (from.isIdentity() && isIdentity())
       return;
     
@@ -996,8 +954,7 @@ namespace WebCore {
     recompose(fromDecomp);
   }
   
-  bool TransformationMatrix::decompose(DecomposedType& decomp) const
-  {
+  bool TransformationMatrix::decompose(DecomposedType& decomp) const {
     if (isIdentity()) {
       memset(&decomp, 0, sizeof(decomp));
       decomp.perspectiveW = 1;
@@ -1011,8 +968,7 @@ namespace WebCore {
     return true;
   }
   
-  void TransformationMatrix::recompose(const DecomposedType& decomp, bool useEulerAngle)
-  {
+  void TransformationMatrix::recompose(const DecomposedType& decomp, bool useEulerAngle) {
     makeIdentity();
     
     // first apply perspective

@@ -37,8 +37,7 @@ namespace WebCore {
     float narrowPrecisionToFloat(T);
 
     template<>
-    inline float narrowPrecisionToFloat(double number)
-    {
+    inline float narrowPrecisionToFloat(double number) {
         return static_cast<float>(number);
     }
 
@@ -46,9 +45,8 @@ namespace WebCore {
     CGFloat narrowPrecisionToCGFloat(T);
 
     template<>
-    inline CGFloat narrowPrecisionToCGFloat(double number)
-    {
-        return static_cast<CGFloat>(number);
+    inline CGFloat narrowPrecisionToCGFloat(double number) {
+		return static_cast<CGFloat>(number);
     }
 
 } // namespace WebCore

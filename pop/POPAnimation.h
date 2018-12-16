@@ -104,6 +104,8 @@ When combined with the autoreverses property, a singular animation is effectivel
  */
 @property (assign, nonatomic) BOOL repeatForever;
 
+- (BOOL)updateExistingAnimation:(POPAnimation *)animation;
+
 @end
 
 /**

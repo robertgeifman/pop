@@ -15,6 +15,7 @@
 #import <pop/POPAnimatableProperty.h>
 #import <pop/POPAnimatablePropertyTypes.h>
 #import <pop/POPAnimation.h>
+#import <pop/POPAnimationPrivate.h>
 #import <pop/POPAnimationEvent.h>
 #import <pop/POPAnimationExtras.h>
 #import <pop/POPAnimationTracer.h>
@@ -22,8 +23,11 @@
 #import <pop/POPBasicAnimation.h>
 #import <pop/POPCustomAnimation.h>
 #import <pop/POPDecayAnimation.h>
+#import <pop/POPCustomEasingAnimation.h>
 #import <pop/POPGeometry.h>
+#import <pop/POPVector.h>
 #import <pop/POPLayerExtras.h>
+#import <pop/POPTransform3D.h>
 #import <pop/POPPropertyAnimation.h>
 #import <pop/POPSpringAnimation.h>
 

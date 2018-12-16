@@ -204,6 +204,10 @@ POPAnimationState *POPAnimationGetState(POPAnimation *a)
   }
 }
 
+- (BOOL)updateExistingAnimation:(POPAnimation *)animation
+{
+	return NO;
+}
 @end
 
 

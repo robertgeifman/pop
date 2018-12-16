@@ -31,37 +31,32 @@
 namespace WebCore {
   
   struct UnitBezier {
-    UnitBezier(double p1x, double p1y, double p2x, double p2y)
-    {
-      // Calculate the polynomial coefficients, implicit first and last control points are (0,0) and (1,1).
-      cx = 3.0 * p1x;
-      bx = 3.0 * (p2x - p1x) - cx;
-      ax = 1.0 - cx -bx;
-      
-      cy = 3.0 * p1y;
-      by = 3.0 * (p2y - p1y) - cy;
-      ay = 1.0 - cy - by;
-    }
+    UnitBezier(double p1x, double p1y, double p2x, double p2y) {
+		// Calculate the polynomial coefficients, implicit first and last control points are (0,0) and (1,1).
+		cx = 3.0 * p1x;
+		bx = 3.0 * (p2x - p1x) - cx;
+		ax = 1.0 - cx -bx;
+
+		cy = 3.0 * p1y;
+		by = 3.0 * (p2y - p1y) - cy;
+		ay = 1.0 - cy - by;
+	}
     
-    double sampleCurveX(double t)
-    {
+    double sampleCurveX(double t) {
       // `ax t^3 + bx t^2 + cx t' expanded using Horner's rule.
       return ((ax * t + bx) * t + cx) * t;
     }
     
-    double sampleCurveY(double t)
-    {
+    double sampleCurveY(double t) {
       return ((ay * t + by) * t + cy) * t;
     }
     
-    double sampleCurveDerivativeX(double t)
-    {
+    double sampleCurveDerivativeX(double t) {
       return (3.0 * ax * t + 2.0 * bx) * t + cx;
     }
     
     // Given an x value, find a parametric value it came from.
-    double solveCurveX(double x, double epsilon)
-    {
+    double solveCurveX(double x, double epsilon) {
       double t0;
       double t1;
       double t2;
@@ -105,8 +100,7 @@ namespace WebCore {
       return t2;
     }
     
-    double solve(double x, double epsilon)
-    {
+    double solve(double x, double epsilon) {
       return sampleCurveY(solveCurveX(x, epsilon));
     }
     
