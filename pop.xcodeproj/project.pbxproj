@@ -1147,12 +1147,12 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EC191217162FB53A00E0CC76 /* pop-ios-static */,
-				0B6BE74719FFD3B900762101 /* pop-ios-framework */,
 				EC68857E18C7B60000C6194C /* pop-osx-framework */,
+				0B6BE74719FFD3B900762101 /* pop-ios-framework */,
 				0755AE4E1BEA15950094AB41 /* pop-tvos-framework */,
-				ECF01ED218C92B7F009E0AD1 /* pop-tests-ios */,
+				EC191217162FB53A00E0CC76 /* pop-ios-static */,
 				EC7E319818C93D6500B38170 /* pop-tests-osx */,
+				ECF01ED218C92B7F009E0AD1 /* pop-tests-ios */,
 				0755AE8B1BEA19580094AB41 /* pop-tests-tvos */,
 			);
 		};
