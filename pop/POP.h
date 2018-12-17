@@ -20,6 +20,7 @@
 #import <pop/POPAnimationExtras.h>
 #import <pop/POPAnimationTracer.h>
 #import <pop/POPAnimator.h>
+#import <pop/POPAnimatorPrivate.h>
 #import <pop/POPBasicAnimation.h>
 #import <pop/POPCustomAnimation.h>
 #import <pop/POPDecayAnimation.h>
