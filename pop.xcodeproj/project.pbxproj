@@ -15,7 +15,7 @@
 		0755AE631BEA15CB0094AB41 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0755AE621BEA15CB0094AB41 /* QuartzCore.framework */; };
 		0755AE651BEA17620094AB41 /* POP.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA94D0B18ECAE82002E4CEB /* POP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0755AE661BEA17670094AB41 /* POPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = EC191288162FB5B700E0CC76 /* POPAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0755AE671BEA17780094AB41 /* POPAnimationPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EC1CD94E18D80A5C00DE2649 /* POPAnimationPrivate.h */; };
+		0755AE671BEA17780094AB41 /* POPAnimationPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EC1CD94E18D80A5C00DE2649 /* POPAnimationPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0755AE681BEA177C0094AB41 /* POPPropertyAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = EC8F013E18FFBBD300DF8905 /* POPPropertyAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0755AE691BEA17840094AB41 /* POPBasicAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = EC8F014D18FFBD3E00DF8905 /* POPBasicAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0755AE6A1BEA178B0094AB41 /* POPCustomAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E17BB1E17457345009842B6 /* POPCustomAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -75,7 +75,7 @@
 		0B6BE77419FFD48700762101 /* POPAnimatableProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = EC19128E162FB5B700E0CC76 /* POPAnimatableProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B6BE77519FFD49100762101 /* POPAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = EC19128B162FB5B700E0CC76 /* POPAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B6BE77619FFD49A00762101 /* POPAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = EC191288162FB5B700E0CC76 /* POPAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B6BE77719FFD4A300762101 /* POPAnimationPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EC1CD94E18D80A5C00DE2649 /* POPAnimationPrivate.h */; };
+		0B6BE77719FFD4A300762101 /* POPAnimationPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EC1CD94E18D80A5C00DE2649 /* POPAnimationPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B6BE77819FFD4AB00762101 /* POPGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = ECD80F0F18CFD2EF00AE4303 /* POPGeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B6BE7D019FFD90F00762101 /* TransformationMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC94B07717D95447003CE2C8 /* TransformationMatrix.cpp */; };
 		0B6BE7D119FFD92700762101 /* POPAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = EC191289162FB5B700E0CC76 /* POPAnimation.mm */; };
@@ -137,8 +137,8 @@
 		E141996521C4FC1800CA3AE3 /* POPCustomEasingAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = E141995C21C4FC1800CA3AE3 /* POPCustomEasingAnimation.mm */; };
 		E141996621C4FC1800CA3AE3 /* POPCustomEasingAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = E141995D21C4FC1800CA3AE3 /* POPCustomEasingAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E141996821C4FC1800CA3AE3 /* POPCustomEasingAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = E141995D21C4FC1800CA3AE3 /* POPCustomEasingAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E141996B21C4FC4700CA3AE3 /* POPCustomEasingAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = E141995D21C4FC1800CA3AE3 /* POPCustomEasingAnimation.h */; };
-		E141996C21C4FC4700CA3AE3 /* POPCustomEasingAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = E141995D21C4FC1800CA3AE3 /* POPCustomEasingAnimation.h */; };
+		E141996B21C4FC4700CA3AE3 /* POPCustomEasingAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = E141995D21C4FC1800CA3AE3 /* POPCustomEasingAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E141996C21C4FC4700CA3AE3 /* POPCustomEasingAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = E141995D21C4FC1800CA3AE3 /* POPCustomEasingAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E141996D21C4FC4B00CA3AE3 /* POPAnimationEventInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = EC9997571756A17B00A73F49 /* POPAnimationEventInternal.h */; };
 		E141996E21C4FC4C00CA3AE3 /* POPAnimationEventInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = EC9997571756A17B00A73F49 /* POPAnimationEventInternal.h */; };
 		E141996F21C4FC5800CA3AE3 /* POPAnimationRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = EC95538E1743E278001E6AF2 /* POPAnimationRuntime.h */; };
@@ -1690,6 +1690,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 04C0670F1B8D577C00ED0525 /* Framework.xcconfig */;
 			buildSettings = {
+				DEFINES_MODULE = YES;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(PROJECT_DIR)/pop/pop-ios-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1705,6 +1706,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 04C0670F1B8D577C00ED0525 /* Framework.xcconfig */;
 			buildSettings = {
+				DEFINES_MODULE = YES;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(PROJECT_DIR)/pop/pop-ios-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1720,6 +1722,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 04C0670F1B8D577C00ED0525 /* Framework.xcconfig */;
 			buildSettings = {
+				DEFINES_MODULE = YES;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(PROJECT_DIR)/pop/pop-ios-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
