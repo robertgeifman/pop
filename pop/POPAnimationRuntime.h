@@ -15,23 +15,6 @@
 #import "POPAnimatablePropertyTypes.h"
 #import "POPVector.h"
 
-enum POPValueType
-{
-  kPOPValueUnknown = 0,
-  kPOPValueInteger,
-  kPOPValueFloat,
-  kPOPValuePoint,
-  kPOPValueSize,
-  kPOPValueRect,
-  kPOPValueEdgeInsets,
-  kPOPValueAffineTransform,
-  kPOPValueTransform,
-  kPOPValueRange,
-  kPOPValueColor,
-  kPOPValueSCNVector3,
-  kPOPValueSCNVector4,
-};
-
 using namespace POP;
 
 /**

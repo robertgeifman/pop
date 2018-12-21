@@ -108,6 +108,10 @@ DEFINE_RW_PROPERTY(POPDecayAnimationState, deceleration, setDeceleration:, CGFlo
     UIEdgeInsets originalVelocityInsets = [self.originalVelocity UIEdgeInsetsValue];
     UIEdgeInsets negativeOriginalVelocityInsets = UIEdgeInsetsMake(-originalVelocityInsets.top, -originalVelocityInsets.left, -originalVelocityInsets.bottom, -originalVelocityInsets.right);
     reversedVelocity = [NSValue valueWithUIEdgeInsets:negativeOriginalVelocityInsets];
+#else
+    NSEdgeInsets originalVelocityInsets = [self.originalVelocity edgeInsetsValue];
+    NSEdgeInsets negativeOriginalVelocityInsets = NSEdgeInsetsMake(-originalVelocityInsets.top, -originalVelocityInsets.left, -originalVelocityInsets.bottom, -originalVelocityInsets.right);
+    reversedVelocity = [NSValue valueWithEdgeInsets:negativeOriginalVelocityInsets];
 #endif
   }
 

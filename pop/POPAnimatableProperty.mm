@@ -169,6 +169,7 @@ typedef struct
   POPAnimatablePropertyReadBlock readBlock;
   POPAnimatablePropertyWriteBlock writeBlock;
   CGFloat threshold;
+  POPValueType type;
 } _POPStaticAnimatablePropertyState;
 typedef _POPStaticAnimatablePropertyState POPStaticAnimatablePropertyState;
 
@@ -187,7 +188,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
       [obj setBackgroundColor:color];
       CGColorRelease(color);
     },
-    kPOPThresholdColor
+    kPOPThresholdColor, kPOPValueColorRGB
   },
 
   {kPOPLayerBounds,
@@ -197,7 +198,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       [obj setBounds:values_to_rect(values)];
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValuePoint
   },
 
   {kPOPLayerCornerRadius,
@@ -207,7 +208,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       [obj setCornerRadius:values[0]];
     },
-    kPOPThresholdRadius
+    kPOPThresholdRadius, kPOPValueFloat
   },
 
   {kPOPLayerBorderWidth,
@@ -217,7 +218,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       [obj setBorderWidth:values[0]];
     },
-    0.01
+    0.01, kPOPValueFloat
   },
 
   {kPOPLayerBorderColor,
@@ -229,7 +230,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
       [obj setBorderColor:color];
       CGColorRelease(color);
     },
-    kPOPThresholdColor
+    kPOPThresholdColor, kPOPValueColorRGB
   },
 
   {kPOPLayerPosition,
@@ -239,7 +240,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       [obj setPosition:values_to_point(values)];
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValuePoint
   },
 
   {kPOPLayerPositionX,
@@ -251,7 +252,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
       p.x = values[0];
       [obj setPosition:p];
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueFloat
   },
 
   {kPOPLayerPositionY,
@@ -263,7 +264,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
       p.y = values[0];
       [obj setPosition:p];
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueFloat
   },
 
   {kPOPLayerOpacity,
@@ -273,7 +274,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       [obj setOpacity:((float)values[0])];
     },
-    kPOPThresholdOpacity
+    kPOPThresholdOpacity, kPOPValueFloat
   },
 
   {kPOPLayerScaleX,
@@ -283,7 +284,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetScaleX(obj, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPLayerScaleY,
@@ -293,7 +294,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetScaleY(obj, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPLayerScaleXY,
@@ -303,7 +304,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetScaleXY(obj, values_to_point(values));
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValuePoint
   },
 
   {kPOPLayerSubscaleXY,
@@ -313,7 +314,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetSubScaleXY(obj, values_to_point(values));
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValuePoint
   },
 
   {kPOPLayerTranslationX,
@@ -323,7 +324,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetTranslationX(obj, values[0]);
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueFloat
   },
 
   {kPOPLayerTranslationY,
@@ -333,7 +334,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetTranslationY(obj, values[0]);
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueFloat
   },
 
   {kPOPLayerTranslationZ,
@@ -343,7 +344,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetTranslationZ(obj, values[0]);
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueFloat
   },
 
   {kPOPLayerTranslationXY,
@@ -353,7 +354,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetTranslationXY(obj, values_to_point(values));
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValuePoint
   },
 
   {kPOPLayerSubtranslationX,
@@ -363,7 +364,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetSubTranslationX(obj, values[0]);
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueFloat
   },
 
   {kPOPLayerSubtranslationY,
@@ -373,7 +374,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetSubTranslationY(obj, values[0]);
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueFloat
   },
 
   {kPOPLayerSubtranslationZ,
@@ -383,7 +384,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetSubTranslationZ(obj, values[0]);
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueFloat
   },
 
   {kPOPLayerSubtranslationXY,
@@ -393,7 +394,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetSubTranslationXY(obj, values_to_point(values));
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValuePoint
   },
 
   {kPOPLayerZPosition,
@@ -403,7 +404,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       [obj setZPosition:values[0]];
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueFloat
   },
 
   {kPOPLayerSize,
@@ -419,7 +420,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
       b.size = size;
       [obj setBounds:b];
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueSize
   },
 
   {kPOPLayerRotation,
@@ -429,7 +430,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetRotation(obj, values[0]);
     },
-    kPOPThresholdRotation
+    kPOPThresholdRotation, kPOPValueFloat
   },
 
   {kPOPLayerRotationY,
@@ -439,7 +440,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(id obj, const CGFloat values[]) {
       POPLayerSetRotationY(obj, values[0]);
     },
-    kPOPThresholdRotation
+    kPOPThresholdRotation, kPOPValueFloat
   },
 
   {kPOPLayerRotationX,
@@ -449,7 +450,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
       POPLayerSetRotationX(obj, values[0]);
     },
-    kPOPThresholdRotation
+    kPOPThresholdRotation, kPOPValueFloat
   },
 
   {kPOPLayerShadowColor,
@@ -461,7 +462,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
         [obj setShadowColor:color];
         CGColorRelease(color);
     },
-    0.01
+	  0.01, kPOPValueColorRGB
   },
 
   {kPOPLayerShadowOffset,
@@ -472,7 +473,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
         CGSize size = values_to_size(values);
         [obj setShadowOffset:size];
     },
-    0.01
+    0.01, kPOPValueSize
   },
 
   {kPOPLayerShadowOpacity,
@@ -482,7 +483,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
         [obj setShadowOpacity:values[0]];
     },
-    kPOPThresholdOpacity
+    kPOPThresholdOpacity, kPOPValueFloat
   },
 
   {kPOPLayerShadowRadius,
@@ -492,7 +493,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CALayer *obj, const CGFloat values[]) {
         [obj setShadowRadius:values[0]];
     },
-    kPOPThresholdRadius
+    kPOPThresholdRadius, kPOPValueFloat
   },
 
   /* CAShapeLayer */
@@ -504,7 +505,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CAShapeLayer *obj, const CGFloat values[]) {
       obj.strokeStart = values[0];
     },
-    0.01
+    0.01, kPOPValueFloat
   },
 
   {kPOPShapeLayerStrokeEnd,
@@ -514,7 +515,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CAShapeLayer *obj, const CGFloat values[]) {
       obj.strokeEnd = values[0];
     },
-    0.01
+    0.01, kPOPValueFloat
   },
 
   {kPOPShapeLayerStrokeColor,
@@ -526,7 +527,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
         [obj setStrokeColor:color];
         CGColorRelease(color);
     },
-    kPOPThresholdColor
+    kPOPThresholdColor, kPOPValueColorRGB
   },
 
   {kPOPShapeLayerFillColor,
@@ -538,7 +539,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
         [obj setFillColor:color];
         CGColorRelease(color);
     },
-    kPOPThresholdColor
+    kPOPThresholdColor, kPOPValueColorRGB
   },
 
   {kPOPShapeLayerLineWidth,
@@ -548,7 +549,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(CAShapeLayer *obj, const CGFloat values[]) {
         obj.lineWidth = values[0];
     },
-    0.01
+    0.01, kPOPValueFloat
   },
     
     {kPOPShapeLayerLineDashPhase,
@@ -558,7 +559,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
         ^(CAShapeLayer *obj, const CGFloat values[]) {
             obj.lineDashPhase = values[0];
         },
-        0.01
+        0.01, kPOPValueFloat
     },
 
   {kPOPLayoutConstraintConstant,
@@ -568,7 +569,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(NSLayoutConstraint *obj, const CGFloat values[]) {
       obj.constant = values[0];
     },
-    0.01
+    0.01, kPOPValueFloat
   },
 
 #if TARGET_OS_IPHONE
@@ -582,7 +583,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIView *obj, const CGFloat values[]) {
       obj.alpha = values[0];
     },
-    kPOPThresholdOpacity
+    kPOPThresholdOpacity, kPOPValueFloat
   },
 
   {kPOPViewBackgroundColor,
@@ -592,7 +593,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIView *obj, const CGFloat values[]) {
       obj.backgroundColor = POPUIColorRGBACreate(values);
     },
-    kPOPThresholdColor
+    kPOPThresholdColor, kPOPValueColorRGB
   },
 
   {kPOPViewCenter,
@@ -602,7 +603,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIView *obj, const CGFloat values[]) {
       obj.center = values_to_point(values);
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValuePoint
   },
 
   {kPOPViewFrame,
@@ -612,7 +613,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIView *obj, const CGFloat values[]) {
       obj.frame = values_to_rect(values);
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueRect
   },
 
   {kPOPViewScaleX,
@@ -622,7 +623,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIView *obj, const CGFloat values[]) {
       POPLayerSetScaleX(obj.layer, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPViewScaleY,
@@ -632,7 +633,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIView *obj, const CGFloat values[]) {
       POPLayerSetScaleY(obj.layer, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPViewScaleXY,
@@ -642,7 +643,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIView *obj, const CGFloat values[]) {
       POPLayerSetScaleXY(obj.layer, values_to_point(values));
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValuePoint
   },
 
   {kPOPViewTintColor,
@@ -652,7 +653,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIView *obj, const CGFloat values[]) {
         obj.tintColor = POPUIColorRGBACreate(values);
     },
-    kPOPThresholdColor
+    kPOPThresholdColor, kPOPValueColorRGB
   },
 
   /* UIScrollView */
@@ -664,7 +665,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIScrollView *obj, const CGFloat values[]) {
       [obj setContentOffset:values_to_point(values) animated:NO];
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValuePoint
   },
 
   {kPOPScrollViewContentSize,
@@ -674,7 +675,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIScrollView *obj, const CGFloat values[]) {
       obj.contentSize = values_to_size(values);
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueSize
   },
 
   {kPOPScrollViewZoomScale,
@@ -684,7 +685,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIScrollView *obj, const CGFloat values[]) {
       obj.zoomScale=values[0];
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPScrollViewContentInset,
@@ -697,7 +698,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIScrollView *obj, const CGFloat values[]) {
       obj.contentInset = values_to_edge_insets(values);
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, edgeInsets
   },
 
   {kPOPScrollViewScrollIndicatorInsets,
@@ -710,7 +711,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UIScrollView *obj, const CGFloat values[]) {
       obj.scrollIndicatorInsets = values_to_edge_insets(values);
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, edgeInsets
   },
 
   /* UINavigationBar */
@@ -722,7 +723,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UINavigationBar *obj, const CGFloat values[]) {
       obj.barTintColor = POPUIColorRGBACreate(values);
     },
-    kPOPThresholdColor
+    kPOPThresholdColor, kPOPValueColorRGB
   },
 
   /* UILabel */
@@ -734,7 +735,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(UILabel *obj, const CGFloat values[]) {
       obj.textColor = POPUIColorRGBACreate(values);
     },
-    kPOPThresholdColor
+    kPOPThresholdColor, kPOPValueColorRGB
   },
 
 #else
@@ -748,7 +749,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(NSView *obj, const CGFloat values[]) {
       obj.frame = NSRectFromCGRect(values_to_rect(values));
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValuePoint
   },
 
   {kPOPViewBounds,
@@ -758,7 +759,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(NSView *obj, const CGFloat values[]) {
       obj.bounds = NSRectFromCGRect(values_to_rect(values));
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueRect
   },
 
   {kPOPViewAlphaValue,
@@ -768,7 +769,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(NSView *obj, const CGFloat values[]) {
       obj.alphaValue = values[0];
     },
-    kPOPThresholdOpacity
+    kPOPThresholdOpacity, kPOPValueFloat
   },
 
   {kPOPViewFrameRotation,
@@ -778,7 +779,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(NSView *obj, const CGFloat values[]) {
       obj.frameRotation = values[0];
     },
-    kPOPThresholdRotation
+    kPOPThresholdRotation, kPOPValueFloat
   },
 
   {kPOPViewFrameCenterRotation,
@@ -788,7 +789,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(NSView *obj, const CGFloat values[]) {
       obj.frameCenterRotation = values[0];
     },
-    kPOPThresholdRotation
+    kPOPThresholdRotation, kPOPValueFloat
   },
 
   {kPOPViewBoundsRotation,
@@ -798,7 +799,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(NSView *obj, const CGFloat values[]) {
       obj.boundsRotation = values[0];
     },
-    kPOPThresholdRotation
+    kPOPThresholdRotation, kPOPValueFloat
   },
 
   /* NSWindow */
@@ -810,7 +811,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(NSWindow *obj, const CGFloat values[]) {
       [obj setFrame:NSRectFromCGRect(values_to_rect(values)) display:YES];
     },
-    kPOPThresholdPoint
+    kPOPThresholdPoint, kPOPValueRect
   },
 
   {kPOPWindowAlphaValue,
@@ -820,7 +821,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(NSWindow *obj, const CGFloat values[]) {
       obj.alphaValue = values[0];
     },
-    kPOPThresholdOpacity
+    kPOPThresholdOpacity, kPOPValueFloat
   },
 
   {kPOPWindowBackgroundColor,
@@ -830,7 +831,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(NSWindow *obj, const CGFloat values[]) {
       obj.backgroundColor = POPNSColorRGBACreate(values);
     },
-    kPOPThresholdColor
+    kPOPThresholdColor, kPOPValueColorRGB
   },
 
 #endif
@@ -846,7 +847,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.position = values_to_vec3(values);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, SCNVector3
   },
 
   {kPOPSCNNodePositionX,
@@ -856,7 +857,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.position = SCNVector3Make(values[0], obj.position.y, obj.position.z);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodePositionY,
@@ -866,7 +867,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.position = SCNVector3Make(obj.position.x, values[0], obj.position.z);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodePositionZ,
@@ -876,7 +877,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.position = SCNVector3Make(obj.position.x, obj.position.y, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeTranslation,
@@ -888,7 +889,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.transform = SCNMatrix4MakeTranslation(values[0], values[1], values[2]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, SCNMatrix4
   },
 
   {kPOPSCNNodeTranslationX,
@@ -898,7 +899,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.transform = SCNMatrix4MakeTranslation(values[0], obj.transform.m42, obj.transform.m43);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, SCNMatrix4
   },
 
   {kPOPSCNNodeTranslationY,
@@ -908,7 +909,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.transform = SCNMatrix4MakeTranslation(obj.transform.m41, values[0], obj.transform.m43);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeTranslationY,
@@ -918,7 +919,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.transform = SCNMatrix4MakeTranslation(obj.transform.m41, obj.transform.m42, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeRotation,
@@ -938,7 +939,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.rotation = SCNVector4Make(1.0, obj.rotation.y, obj.rotation.z, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeRotationY,
@@ -948,7 +949,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.rotation = SCNVector4Make(obj.rotation.x, 1.0, obj.rotation.z, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeRotationZ,
@@ -958,7 +959,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.rotation = SCNVector4Make(obj.rotation.x, obj.rotation.y, 1.0, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeRotationW,
@@ -968,7 +969,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.rotation = SCNVector4Make(obj.rotation.x, obj.rotation.y, obj.rotation.z, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeEulerAngles,
@@ -988,7 +989,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.eulerAngles = SCNVector3Make(values[0], obj.eulerAngles.y, obj.eulerAngles.z);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeEulerAnglesY,
@@ -998,7 +999,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.eulerAngles = SCNVector3Make(obj.eulerAngles.x, values[0], obj.eulerAngles.z);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeEulerAnglesZ,
@@ -1008,7 +1009,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.eulerAngles = SCNVector3Make(obj.eulerAngles.x, obj.eulerAngles.y, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeOrientation,
@@ -1028,7 +1029,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.orientation = SCNVector4Make(values[0], obj.orientation.y, obj.orientation.z, obj.orientation.w);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeOrientationY,
@@ -1038,7 +1039,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.orientation = SCNVector4Make(obj.orientation.x, values[0], obj.orientation.z, obj.orientation.w);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeOrientationZ,
@@ -1048,7 +1049,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.orientation = SCNVector4Make(obj.orientation.x, obj.orientation.y, values[0], obj.orientation.w);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeOrientationW,
@@ -1058,7 +1059,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.orientation = SCNVector4Make(obj.orientation.x, obj.orientation.y, obj.orientation.z, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeScale,
@@ -1078,7 +1079,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.scale = SCNVector3Make(values[0], obj.scale.y, obj.scale.z);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeScaleY,
@@ -1088,7 +1089,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.position = SCNVector3Make(obj.scale.x, values[0], obj.scale.z);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeScaleZ,
@@ -1098,7 +1099,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.scale = SCNVector3Make(obj.scale.x, obj.scale.y, values[0]);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueFloat
   },
 
   {kPOPSCNNodeScaleXY,
@@ -1109,7 +1110,7 @@ static POPStaticAnimatablePropertyState _staticStates[] =
     ^(SCNNode *obj, const CGFloat values[]) {
       obj.scale = SCNVector3Make(values[0], values[1], obj.scale.z);
     },
-    kPOPThresholdScale
+    kPOPThresholdScale, kPOPValueSCNVector3
   },
 
 #endif
@@ -1170,15 +1171,15 @@ static NSUInteger staticIndexWithName(NSString *aName)
  Concrete immutable property class.
  */
 @interface POPConcreteAnimatableProperty : POPAnimatableProperty
-- (instancetype)initWithName:(NSString *)name readBlock:(POPAnimatablePropertyReadBlock)read writeBlock:(POPAnimatablePropertyWriteBlock)write threshold:(CGFloat)threshold;
+- (instancetype)initWithName:(NSString *)name readBlock:(POPAnimatablePropertyReadBlock)read writeBlock:(POPAnimatablePropertyWriteBlock)write threshold:(CGFloat)threshold type:(POPValueType)type;
 @end
 
 @implementation POPConcreteAnimatableProperty
 
 // default synthesis
-@synthesize name, readBlock, writeBlock, threshold;
+@synthesize name, readBlock, writeBlock, threshold, type;
 
-- (instancetype)initWithName:(NSString *)aName readBlock:(POPAnimatablePropertyReadBlock)aReadBlock writeBlock:(POPAnimatablePropertyWriteBlock)aWriteBlock threshold:(CGFloat)aThreshold
+- (instancetype)initWithName:(NSString *)aName readBlock:(POPAnimatablePropertyReadBlock)aReadBlock writeBlock:(POPAnimatablePropertyWriteBlock)aWriteBlock threshold:(CGFloat)aThreshold type:(POPValueType)aType
 {
   self = [super init];
   if (nil != self) {
@@ -1186,6 +1187,7 @@ static NSUInteger staticIndexWithName(NSString *aName)
     readBlock = [aReadBlock copy];
     writeBlock = [aWriteBlock copy];
     threshold = aThreshold;
+	type = aType;
   }
   return self;
 }
@@ -1196,7 +1198,7 @@ static NSUInteger staticIndexWithName(NSString *aName)
 @implementation POPMutableAnimatableProperty
 
 // default synthesis
-@synthesize name, readBlock, writeBlock, threshold;
+@synthesize name, readBlock, writeBlock, threshold, type;
 
 @end
 
@@ -1212,7 +1214,7 @@ static NSUInteger staticIndexWithName(NSString *aName)
 @implementation POPPlaceholderAnimatableProperty
 
 // default synthesis
-@synthesize name, readBlock, writeBlock, threshold;
+@synthesize name, readBlock, writeBlock, threshold, type;
 
 @end
 
@@ -1222,7 +1224,7 @@ static NSUInteger staticIndexWithName(NSString *aName)
 @implementation POPAnimatableProperty
 
 // avoid creating backing ivars
-@dynamic name, readBlock, writeBlock, threshold;
+@dynamic name, readBlock, writeBlock, threshold, type;
 
 static POPAnimatableProperty *placeholder = nil;
 
@@ -1247,7 +1249,7 @@ static POPAnimatableProperty *placeholder = nil;
 - (id)copyWithZone:(NSZone *)zone
 {
   if ([self isKindOfClass:[POPMutableAnimatableProperty class]]) {
-    POPConcreteAnimatableProperty *copyProperty = [[POPConcreteAnimatableProperty alloc] initWithName:self.name readBlock:self.readBlock writeBlock:self.writeBlock threshold:self.threshold];
+    POPConcreteAnimatableProperty *copyProperty = [[POPConcreteAnimatableProperty alloc] initWithName:self.name readBlock:self.readBlock writeBlock:self.writeBlock threshold:self.threshold type:self.type];
     return copyProperty;
   } else {
     return self;

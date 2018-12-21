@@ -99,13 +99,13 @@ static bool FBCompareTypeEncoding(const char *objctype, POPValueType type)
 #if TARGET_OS_IPHONE
       return strcmp(objctype, @encode(UIEdgeInsets)) == 0;
 #else
-      return false;
+      return strcmp(objctype, @encode(NSEdgeInsets)) == 0;
 #endif
       
     case kPOPValueAffineTransform:
       return strcmp(objctype, @encode(CGAffineTransform)) == 0;
 
-    case kPOPValueTransform:
+	  case kPOPValueTransform3D:
       return strcmp(objctype, @encode(CATransform3D)) == 0;
 
     case kPOPValueRange:
@@ -158,14 +158,14 @@ POPValueType POPSelectValueType(id obj, const POPValueType *types, size_t length
   if ([obj isKindOfClass:[NSValue class]]) {
     return POPSelectValueType([obj objCType], types, length);
   } else if (NULL != POPCGColorWithColor(obj)) {
-    return kPOPValueColor;
+    return kPOPValueColorRGB;
   }
   return kPOPValueUnknown;
 }
 
-const POPValueType kPOPAnimatableAllTypes[12] = {kPOPValueInteger, kPOPValueFloat, kPOPValuePoint, kPOPValueSize, kPOPValueRect, kPOPValueEdgeInsets, kPOPValueAffineTransform, kPOPValueTransform, kPOPValueRange, kPOPValueColor, kPOPValueSCNVector3, kPOPValueSCNVector4};
+const POPValueType kPOPAnimatableAllTypes[12] = {kPOPValueInteger, kPOPValueFloat, kPOPValuePoint, kPOPValueSize, kPOPValueRect, kPOPValueEdgeInsets, kPOPValueAffineTransform, kPOPValueTransform3D, kPOPValueRange, kPOPValueColorRGB, kPOPValueSCNVector3, kPOPValueSCNVector4};
 
-const POPValueType kPOPAnimatableSupportTypes[10] = {kPOPValueInteger, kPOPValueFloat, kPOPValuePoint, kPOPValueSize, kPOPValueRect, kPOPValueEdgeInsets, kPOPValueColor, kPOPValueSCNVector3, kPOPValueSCNVector4};
+const POPValueType kPOPAnimatableSupportTypes[10] = {kPOPValueInteger, kPOPValueFloat, kPOPValuePoint, kPOPValueSize, kPOPValueRect, kPOPValueEdgeInsets, kPOPValueColorRGB, kPOPValueSCNVector3, kPOPValueSCNVector4};
 
 NSString *POPValueTypeToString(POPValueType t)
 {
@@ -186,11 +186,11 @@ NSString *POPValueTypeToString(POPValueType t)
       return @"UIEdgeInsets";
     case kPOPValueAffineTransform:
       return @"CGAffineTransform";
-    case kPOPValueTransform:
+	  case kPOPValueTransform3D:
       return @"CATransform3D";
     case kPOPValueRange:
       return @"CFRange";
-    case kPOPValueColor:
+    case kPOPValueColorRGB:
       return @"CGColorRef";
     case kPOPValueSCNVector3:
       return @"SCNVector3";
@@ -225,7 +225,7 @@ id POPBox(VectorConstRef vec, POPValueType type, bool force)
       return [NSValue valueWithUIEdgeInsets:vec->ui_edge_insets()];
       break;
 #endif
-    case kPOPValueColor: {
+    case kPOPValueColorRGB: {
       return (__bridge_transfer id)vec->cg_color();
       break;
     }
@@ -275,7 +275,7 @@ static VectorRef vectorize(id value, POPValueType type)
     case kPOPValueAffineTransform:
       vec = Vector::new_cg_affine_transform([value CGAffineTransformValue]);
       break;
-    case kPOPValueColor:
+    case kPOPValueColorRGB:
       vec = Vector::new_cg_color(POPCGColorWithColor(value));
       break;
 #if SCENEKIT_SDK_AVAILABLE

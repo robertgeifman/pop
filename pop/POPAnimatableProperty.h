@@ -59,6 +59,10 @@
  */
 @property (readonly, nonatomic, assign) CGFloat threshold;
 
+/**
+ @abstract The property type
+ */
+@property (readonly, nonatomic, assign) POPValueType type;
 @end
 
 /**
@@ -85,6 +89,11 @@
  @abstract A read-write version of POPAnimatableProperty threshold property.
  */
 @property (readwrite, nonatomic, assign) CGFloat threshold;
+
+/**
+ @abstract A read-write version of POPAnimatableProperty type property.
+ */
+@property (readwrite, nonatomic, assign) POPValueType type;
 
 @end
 

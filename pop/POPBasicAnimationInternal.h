@@ -26,11 +26,11 @@ static void interpolate(POPValueType valueType, NSUInteger count, const CGFloat 
     case kPOPValueSize:
     case kPOPValueRect:
     case kPOPValueEdgeInsets:
-    case kPOPValueColor:
+    case kPOPValueColorRGB:
       POPInterpolateVector(count, outVec, fromVec, toVec, p);
       break;
     default:
-      NSCAssert(false, @"unhandled type %d", valueType);
+		  NSCAssert(false, @"unhandled type %ld", (long)valueType);
       break;
   }
 }

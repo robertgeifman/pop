@@ -56,6 +56,11 @@ NS_INLINE UIEdgeInsets values_to_edge_insets(const CGFloat values[])
 {
   return UIEdgeInsetsMake(values[0], values[1], values[2], values[3]);
 }
+#else
+NS_INLINE NSEdgeInsets values_to_edge_insets(const CGFloat values[])
+{
+  return NSEdgeInsetsMake(values[0], values[1], values[2], values[3]);
+}
 
 #endif
 

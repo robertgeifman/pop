@@ -28,6 +28,8 @@
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#else
+#import <AppKit/AppKit.h>
 #endif
 
 namespace POP {
@@ -337,6 +339,9 @@ namespace POP {
     // UIEdgeInsets support
     UIEdgeInsets ui_edge_insets() const;
     static Vector *new_ui_edge_insets(const UIEdgeInsets &i);
+#else
+    NSEdgeInsets ui_edge_insets() const;
+    static Vector *new_ui_edge_insets(const NSEdgeInsets &i);
 #endif
 
     // CGAffineTransform support
